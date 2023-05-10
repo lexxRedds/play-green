@@ -8,7 +8,6 @@ const Main = styled.main`
 export default function Logout() {
   const auth = getAuth();
 
-  console.log('Hello');
   signOut(auth).then(() => {
     window.location.replace("/");
   }).catch((error) => {

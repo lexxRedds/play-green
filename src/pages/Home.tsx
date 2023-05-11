@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import ShareBtn from '../components/ShareBtn';
+
+import { Player, fetchData } from '../components/FetchData';
 
 const Main = styled.main`
   width: 100%;
@@ -15,42 +18,93 @@ const Main = styled.main`
 `;
 
 const Post = styled.article`
+  display: grid;
+  grid-template-rows: 63% 14% 23%;
+  grid-template-columns: repeat(10, 1fr);
+  height: 100%;
   font-size: 1rem;
 `;
 
 const Cover = styled.section`
+  grid-column: 1 / 11;
+  grid-row: 1 / 3;
   width: 100%;
-  height: 60vh;
-  background: #050505;
-  border-radius: 32px;  
-  font-size: 1rem;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 32px;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+`;
+
+const Theme = styled.aside`
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  margin: 22px 0 0 22px;
+  width: 62px;
+  height: 63px;
+  border-radius: 18px;
+  background: white;
+  background-image: url('../src/assets/🌙.svg');
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
 `;
 
 const Sport = styled.section`
-  font-size: 1rem;
+  grid-column: 1 / 11;
+  grid-row: 2 / 3;
+  background: linear-gradient(to top, black 70%, transparent);
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  padding: 2rem;
+  font-size: 2.5rem;
+  color: white;
+  font-weight: 700;
 `;
 
 const Share = styled.section`
-  margin-top: 47px;
+  grid-column: 4 / 8;
+  grid-row: 3 / 4;
   display: flex;
   gap: 22px;
   justify-content: center;
   align-items: center;
 `;
 
-const Theme = styled.aside`
-  font-size: 1rem;
-`;
 
 const Home = () => {
   const [ share, setShare ] = useState('none');
+  const [playerData, setPlayerData] = useState<Player>({ strSport: '', strThumb: '' });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async () => {
+      try {
+        const player: Player = await fetchData();
+        setPlayerData(player);
+      } catch(error) {
+        console.log('Error fetching player data:', error);
+      }
+    }
+  });
+
+  useEffect(() => {
+    navigate(`/home/${playerData.strSport}`);
+  }, [playerData, navigate]);
 
   return(
     <Main>
       <Post>
         <Theme />
-        <Cover />
-        <Sport />
+        <Cover><Img src={playerData.strThumb} alt={playerData.strSport} /></Cover>
+        <Sport>{playerData.strSport}</Sport>
         <Share>
           <ShareBtn buttonType='dislike' preference={(share === 'dislike').toString()} onClick={()=>setShare('dislike')} />
           <ShareBtn buttonType='like' preference={(share === 'like').toString()} onClick={()=>setShare('like')} />

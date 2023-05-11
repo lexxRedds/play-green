@@ -9,7 +9,7 @@ const Nav = styled.nav`
     width: 347px;
     height: 85px;
     border-radius: 24px;
-    background: #2C2B3E;
+    background: white;
     padding: 0 12px;
     margin-bottom: 20px;
     align-self: center;
@@ -19,13 +19,23 @@ const Nav = styled.nav`
 `;
 
 const Button = styled.div<ButtonProps>`
+    position: relative;
     width: 59px;
     height: 59px;
     border-radius: 16px;
-    background: #1F1F31;
-    background-image: url(${props => props.icon});    
-    background-repeat: no-repeat;
-    background-position: center;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url(${props => props.icon});    
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: invert(40%) sepia(0.9) brightness(0.8) saturate(80) hue-rotate(230deg);
+    }
 `;
 
 export default function Navbar() {

@@ -3,6 +3,7 @@ import { getDatabase } from 'firebase/database';
 
 import { DatabaseProvider, AuthProvider, useFirebaseApp } from 'reactfire';
 
+
 import {
   BrowserRouter,
   Routes,
@@ -30,7 +31,7 @@ function App() {
             <Routes>
               <Route path="/" element={<AuthRoute><Home /></AuthRoute>} />
               <Route path="/home" element={<AuthRoute><Home /></AuthRoute>} />
-              <Route path="/home/:sport" element={<AuthRoute><History /></AuthRoute>} />
+              <Route path="/home/:sport" element={<AuthRoute><Home /></AuthRoute>} />
               <Route path="/history" element={<AuthRoute><History /></AuthRoute>} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<AuthRoute><Logout /></AuthRoute>} />

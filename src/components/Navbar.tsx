@@ -11,6 +11,8 @@ const Nav = styled.nav`
     border-radius: 24px;
     background: #2C2B3E;
     padding: 0 12px;
+    margin-bottom: 20px;
+    align-self: center;
     display: flex;    
     justify-content: space-between;
     align-items: center;

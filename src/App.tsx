@@ -9,7 +9,7 @@ import {
   Route
 } from "react-router-dom";
 
-import './App.css';
+//import './App.css';
 import AuthRoute from './components/AuthRoute';
 import Home from './pages/Home';
 import History from './pages/History';

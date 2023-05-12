@@ -9,6 +9,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'DM Sans', sans-serif;
     font-size: 16px;
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;

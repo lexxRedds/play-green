@@ -19,6 +19,7 @@ const urlGenerator = () => {
 }
 
 export async function fetchData(): Promise<Player> {
+  console.log('Paso 4');
   const response: AxiosResponse<APIResponse> = await axios.get<APIResponse>(urlGenerator());
   const data: Player = response.data.players[0];
   return data;

@@ -1,18 +1,22 @@
 import styled from 'styled-components';
 
 import { useState, FormEvent } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import SignIn from '../components/SignIn';
 
 const Main = styled.main`
     width: 100%;
-    font-size: 1rem;
-    text-align: center;
+    height: 100vh;
     background: #E5E5E5;
+    text-align: center;
+    color: #232232;
 `;
 
 const Form = styled.form`
+    height: 100%;
+    margin: 0 auto;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,13 +27,13 @@ const Title = styled.h1`
     font-size: 42px;
     line-height: 51.25px;
     margin: 0;
-
 `;
 
 const Welcome = styled.span`
-    width: 85%;
-    font-size: 18px;
     margin: 7px 0;
+    width: 85%;
+    font-size: 1rem;
+    color: #333242;
 `;
 
 const InputGroup = styled.fieldset`
@@ -76,10 +80,18 @@ const InputLabel = styled.label`
     }
 `;
 
-const NoLogin = styled.span`
-    font-size: 16px;
+const NoLogin = styled.fieldset`
     align-self: flex-start;
-    margin: 12px 0;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+`;
+
+const LogHelp = styled.span`
+    padding-right: 50px;
+    font-size: 0.9rem;
+    color: #666;
 `;
 
 const Button = styled.button`
@@ -87,6 +99,7 @@ const Button = styled.button`
     width: 122px;
     height: 66px;
     margin: 10px 0;
+    border: none;
     border-radius: 25px;
     background: linear-gradient(to right, #236BFE, #0D4ED3);
     color: #FFFFFF;
@@ -119,14 +132,15 @@ export default function Login() {
             <Form onSubmit={handleForm}>
                 <Title>Welcome</Title>
                 <Welcome>
-                    Welcome to Play Green! Connect with other sports fans and share your preferences. Join us now and start exploring!
+                    Connect with other sports fans and share your preferences. Join us now and start exploring!
                 </Welcome>
                 <InputGroup>
                     <Input
-                        type="user"
+                        type="email"
                         placeholder="User"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
                     <InputLabel>User</InputLabel>
                 </InputGroup>
@@ -136,10 +150,14 @@ export default function Login() {
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                     <InputLabel>Password</InputLabel>
                 </InputGroup>
-                <NoLogin>Forgot your <a href='/login/:reset'>password</a>?</NoLogin>
+                <NoLogin>
+                    <LogHelp>Forgot your <Link to={{ pathname: "/login/:ResetPassword" }}>password</Link>?</LogHelp>
+                    <LogHelp>New <Link to={{ pathname: "/login/:NewUser" }}>user</Link>?</LogHelp>
+                </NoLogin>
 
                 <Button type="submit">Login</Button>
             </Form>

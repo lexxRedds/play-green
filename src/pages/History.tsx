@@ -1,7 +1,6 @@
 import { useFirestore, useFirestoreCollectionData, useAuth } from 'reactfire';
 
-import { useState, useEffect } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where } from 'firebase/firestore';
 import styled from 'styled-components';
 
 import HistoryCard from '../components/HistoryCard';
@@ -13,23 +12,21 @@ const Main = styled.main`
 `;
 
 const History = () => {
-  //const { currentUser } = useAuth();
-  //const [posts, setPosts] = useState<firebase.firestore.DocumentData[]>([]);
   
   const auth = useAuth();
-  //const postsRef = useFirestore().collection('posts').where('userId', '==', auth.currentUser.uid);
+
   const firestore = useFirestore();
   const postsCollection = collection(firestore, 'posts');
-  const postsQuery = query(postsCollection, where('userId', '==', auth.currentUser.uid))
+  const postsQuery = query(postsCollection, where('userId', '==', auth.currentUser?.uid));  //If is null tunrs undefined
   
   
-  const { data: postsData } = useFirestoreCollectionData(postsCollection);
+  const { data: postsData } = useFirestoreCollectionData(postsQuery);
 
 
   return (
     <Main>
       {postsData.map((post) => (
-        <HistoryCard key={post.postId} post={post} />
+        <HistoryCard key={post.postId} post={post.post} />
       ))}
     </Main>
   );

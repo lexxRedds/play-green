@@ -13,7 +13,7 @@ const Card = styled.div`
   align-items: center;
   padding: 16px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: 16px;
 `;
 
@@ -36,8 +36,8 @@ const Icon = styled.img`
   height: 24px;
 `;
 
-const HistoryCard: React.FC<HistoryCardProps> = ({ post }) => {
-//const HistoryCard = ({ post }: HistoryCardProps) => {
+//const HistoryCard: React.FC<HistoryCardProps> = ({ post }) => {
+const HistoryCard = ({ post }: HistoryCardProps) => {
   return (
     <Card>
       <BackgroundImage style={{ backgroundImage: `url(${post.url})` }} />

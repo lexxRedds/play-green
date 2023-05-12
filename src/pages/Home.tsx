@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
@@ -82,18 +82,34 @@ const Home = () => {
   const [ share, setShare ] = useState('none');
   const [playerData, setPlayerData] = useState<Player>({ strSport: '', strThumb: '' });
 
-  const navigate = useNavigate();
+  const memoizedButtons = useMemo(() => (
+    <Share>
+      <ShareBtn
+        buttonType="dislike"
+        preference={(share === 'dislike').toString()}
+        onClick={()=>setShare('dislike')}
+      />
+      <ShareBtn
+        buttonType="like"
+        preference={(share === 'like').toString()}
+        onClick={()=>setShare('like')}
+      />
+    </Share>
+  ), [share]);
+  
 
+  const navigate = useNavigate();
+  console.log('Paso 1');
   useEffect(() => {
-    async () => {
+    (async () => {
       try {
         const player: Player = await fetchData();
         setPlayerData(player);
       } catch(error) {
         console.log('Error fetching player data:', error);
       }
-    }
-  });
+    })();
+  },[share]);
 
   useEffect(() => {
     navigate(`/home/${playerData.strSport}`);
@@ -105,10 +121,11 @@ const Home = () => {
         <Theme />
         <Cover><Img src={playerData.strThumb} alt={playerData.strSport} /></Cover>
         <Sport>{playerData.strSport}</Sport>
-        <Share>
+        {memoizedButtons}
+        {/*<Share>
           <ShareBtn buttonType='dislike' preference={(share === 'dislike').toString()} onClick={()=>setShare('dislike')} />
           <ShareBtn buttonType='like' preference={(share === 'like').toString()} onClick={()=>setShare('like')} />
-        </Share>
+  </Share>*/}
       </Post>
       <Navbar />
     </Main>

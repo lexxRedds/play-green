@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import ShareBtn from '../components/ShareBtn';
@@ -97,8 +96,6 @@ const Home = () => {
     </Share>
   ), [share]);
   
-
-  const navigate = useNavigate();
   console.log('Paso 1');
   useEffect(() => {
     (async () => {
@@ -110,10 +107,6 @@ const Home = () => {
       }
     })();
   },[share]);
-
-  useEffect(() => {
-    navigate(`/home/${playerData.strSport}`);
-  }, [playerData, navigate]);
 
   return(
     <Main>

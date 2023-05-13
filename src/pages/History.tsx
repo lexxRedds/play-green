@@ -1,3 +1,5 @@
+import { getAuth } from "firebase/auth";
+
 import { useFirestore, useFirestoreCollectionData, useAuth } from 'reactfire';
 
 import { collection, query, where } from 'firebase/firestore';
@@ -12,23 +14,25 @@ const Main = styled.main`
 `;
 
 const History = () => {
+  console.log('contando 4');
   
-  const auth = useAuth();
+  const auth = getAuth();
 
   const firestore = useFirestore();
-  const postsCollection = collection(firestore, 'posts');
+/*  const postsCollection = collection(firestore, 'posts');
+  console.log('contando 1');
   const postsQuery = query(postsCollection, where('userId', '==', auth.currentUser?.uid));  //If is null tunrs undefined
-  
+  console.log('contando 2');
   
   const { data: postsData } = useFirestoreCollectionData(postsQuery);
-
+  console.log('contando 3');*/
 
   return (
-    <Main>
+    <Main>{/*}
       {postsData.map((post) => (
         <HistoryCard key={post.postId} post={post.post} />
       ))}
-    </Main>
+      */}</Main>
   );
 };
 

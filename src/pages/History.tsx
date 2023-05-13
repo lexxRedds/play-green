@@ -16,7 +16,7 @@ const Main = styled.main`
 const History = () => {
   console.log('contando 4');
   
-  const auth = getAuth();
+  const auth = useAuth();
 
   const firestore = useFirestore();
 /*  const postsCollection = collection(firestore, 'posts');
